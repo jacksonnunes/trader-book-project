@@ -1,0 +1,107 @@
+package com.traderbook.domains;
+
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "ope_operation")
+public class Operacao {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	private Date data;
+	
+	private Mercado mercado;
+	
+	private Estrategia estrategia;
+	
+	private Competicao competicao;
+	
+	private String evento;
+	
+	private double valorInvestido;
+	
+	private double valorRetorno;
+	
+	private double ROI;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
+
+	public Mercado getMercado() {
+		return mercado;
+	}
+
+	public void setMercado(Mercado mercado) {
+		this.mercado = mercado;
+	}
+
+	public Estrategia getEstrategia() {
+		return estrategia;
+	}
+
+	public void setEstrategia(Estrategia estrategia) {
+		this.estrategia = estrategia;
+	}
+
+	public Competicao getCompeticao() {
+		return competicao;
+	}
+
+	public void setCompeticao(Competicao competicao) {
+		this.competicao = competicao;
+	}
+
+	public String getEvento() {
+		return evento;
+	}
+
+	public void setEvento(String evento) {
+		this.evento = evento;
+	}
+
+	public double getValorInvestido() {
+		return valorInvestido;
+	}
+
+	public void setValorInvestido(double valorInvestido) {
+		this.valorInvestido = valorInvestido;
+	}
+
+	public double getValorRetorno() {
+		return valorRetorno;
+	}
+
+	public void setValorRetorno(double valorRetorno) {
+		this.valorRetorno = valorRetorno;
+	}
+
+	public double getROI() {
+		return ROI;
+	}
+
+	public void setROI(double rOI) {
+		ROI = rOI;
+	}
+
+}

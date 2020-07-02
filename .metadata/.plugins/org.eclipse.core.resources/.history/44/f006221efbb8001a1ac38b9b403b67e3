@@ -1,0 +1,15 @@
+package com.traderbook.controllers;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/operacoes")
+public class OperacoesController {
+	
+	public String listar(Model model) {
+		
+	}
+
+}

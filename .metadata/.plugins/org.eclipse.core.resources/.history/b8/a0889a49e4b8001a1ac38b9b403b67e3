@@ -1,0 +1,18 @@
+package com.traderbook.domains;
+
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "pai_pais")
+public abstract class Pais {
+	
+	private Long id;
+	
+	private String nome;
+	
+	private Set<Competicao> competicao;
+
+}

@@ -1,0 +1,12 @@
+package com.traderbook.domains;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "mkt_market")
+public class Mercado {
+	
+	private String mercado;
+
+}

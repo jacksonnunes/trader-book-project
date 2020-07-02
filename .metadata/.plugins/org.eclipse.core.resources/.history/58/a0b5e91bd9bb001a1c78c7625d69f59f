@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Efetuar Depósito</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div th:replace="fragments/fragments :: header"></div>
+	<div class="justify-content-around">
+		<h2 class="text-center">Depositar</h2>
+		<form class="form-horizontal" action="/bank/deposit" method="post" th:object="${bancas}">
+			<div class="row">
+				<input type="text" th:field="*{nomeBanca}" readonly/>
+				<input type="hidden" th:field="*{id}"/>
+				<input type="hidden" th:field="*{saldo}"/>
+			</div>
+			<div th:object="deposito">
+				<div class="row">
+					<div class="form-group col-md-5">
+						<label for="data">Data do depósito:</label> 
+						<input type="text" class="form-control" id="data" th:field="*{data}"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-5">
+						<label for="deposit">Valor do depósito:</label> 
+						<input type="number" class="form-control" id="deposit" th:field="*{valor}"/>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<input type="submit" value="Salvar" class="btn btn-primary"/>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

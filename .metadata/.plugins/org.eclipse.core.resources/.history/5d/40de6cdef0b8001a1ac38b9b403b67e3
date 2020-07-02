@@ -1,0 +1,124 @@
+package com.traderbook.domains;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+@Entity
+@Table(name = "ope_operation")
+public class Operacao {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(name = "ope_data", nullable = false)
+	@DateTimeFormat(pattern = "dd/MM/yyy")
+	@NotNull(message = "Campo obrigatório.")
+	private Date data;
+	
+	@Column(name = "ope_mercado", length = 20, nullable = false)
+	@NotNull(message = "Preencher informações.")
+	private Mercado mercado;
+	
+	@Column(name = "ope_estrategia", length = 20, nullable = false)
+	@NotNull(message = "Preencher informações.")
+	private Estrategia estrategia;
+	
+	@Column(name = "ope_competicao", length = 25, nullable = false)
+	@NotNull(message = "Preencher informações.")
+	private Competicao competicao;
+	
+	@Column(name = "ope_mercado", length = 100, nullable = false)
+	@NotNull(message = "Preencher informações.")
+	@Size(min = 5, max = 100, message = "Este campo deve conter entre 5 e 100 caracteres.")
+	private String evento;
+	
+	private double valorInvestido;
+	
+	private double valorRetorno;
+	
+	private double ROI;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
+
+	public Mercado getMercado() {
+		return mercado;
+	}
+
+	public void setMercado(Mercado mercado) {
+		this.mercado = mercado;
+	}
+
+	public Estrategia getEstrategia() {
+		return estrategia;
+	}
+
+	public void setEstrategia(Estrategia estrategia) {
+		this.estrategia = estrategia;
+	}
+
+	public Competicao getCompeticao() {
+		return competicao;
+	}
+
+	public void setCompeticao(Competicao competicao) {
+		this.competicao = competicao;
+	}
+
+	public String getEvento() {
+		return evento;
+	}
+
+	public void setEvento(String evento) {
+		this.evento = evento;
+	}
+
+	public double getValorInvestido() {
+		return valorInvestido;
+	}
+
+	public void setValorInvestido(double valorInvestido) {
+		this.valorInvestido = valorInvestido;
+	}
+
+	public double getValorRetorno() {
+		return valorRetorno;
+	}
+
+	public void setValorRetorno(double valorRetorno) {
+		this.valorRetorno = valorRetorno;
+	}
+
+	public double getROI() {
+		return ROI;
+	}
+
+	public void setROI(double rOI) {
+		ROI = rOI;
+	}
+
+}

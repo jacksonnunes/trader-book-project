@@ -1,0 +1,20 @@
+package com.traderbook.controllers;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.traderbook.repositories.RepositorioOperacao;
+
+@Controller
+@RequestMapping("/operacoes")
+public class OperacoesController {
+	
+	private RepositorioOperacao repositorioOperacao;
+	
+	@RequestMapping(value = "/listar")
+	public String listar() {
+		return "operations";
+	}
+
+}

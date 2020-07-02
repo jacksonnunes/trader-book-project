@@ -1,0 +1,11 @@
+package com.traderbook.domains;
+
+public class Competicao extends Pais {
+	
+	private Long id;
+	
+	private String nome;
+	
+	private Pais pais;
+
+}

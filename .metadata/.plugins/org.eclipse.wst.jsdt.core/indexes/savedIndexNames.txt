@@ -1,0 +1,9 @@
+INDEX VERSION 1.4+D:\Documentos\TRADER ESPORTIVO\TraderBookProject\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+120681123.index
+3270263751.index
+3588585523.index
+2240349672.index
+1243803969.index
+2195046215.index
+2174195574.index
+2420887982.index

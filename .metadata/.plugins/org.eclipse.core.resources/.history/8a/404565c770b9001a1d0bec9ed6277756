@@ -1,0 +1,23 @@
+package com.traderbook.controllers;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.traderbook.domains.Banca;
+import com.traderbook.repositories.RepositorioBanca;
+
+@Controller
+public class HomeController {
+	
+	private RepositorioBanca repositorioBanca;
+	
+	@RequestMapping("/")
+	public String home(Model model) {
+		model.addAttribute("bancas", repositorioBanca.findAll());
+		return "index";
+	}
+
+}

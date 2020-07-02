@@ -1,0 +1,14 @@
+package com.traderbook.domains;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "str_strategy")
+public class Estrategia {
+	
+	private Long id;
+	
+	private String estrategia;
+
+}

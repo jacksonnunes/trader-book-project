@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+    <libraryInfo home="D:\Arquivos de Programas\Java\jdk1.8.0_211" version="1.8.0_211">
+        <bootpath>
+            <entry path="D:\Arquivos de Programas\Java\jdk1.8.0_211\jre\lib\resources.jar"/>
+            <entry path="D:\Arquivos de Programas\Java\jdk1.8.0_211\jre\lib\rt.jar"/>
+            <entry path="D:\Arquivos de Programas\Java\jdk1.8.0_211\jre\lib\sunrsasign.jar"/>
+            <entry path="D:\Arquivos de Programas\Java\jdk1.8.0_211\jre\lib\jsse.jar"/>
+            <entry path="D:\Arquivos de Programas\Java\jdk1.8.0_211\jre\lib\jce.jar"/>
+            <entry path="D:\Arquivos de Programas\Java\jdk1.8.0_211\jre\lib\charsets.jar"/>
+            <entry path="D:\Arquivos de Programas\Java\jdk1.8.0_211\jre\lib\jfr.jar"/>
+            <entry path="D:\Arquivos de Programas\Java\jdk1.8.0_211\jre\classes"/>
+        </bootpath>
+        <extensionDirs>
+            <entry path="D:\Arquivos de Programas\Java\jdk1.8.0_211\jre\lib\ext"/>
+            <entry path="C:\WINDOWS\Sun\Java\lib\ext"/>
+        </extensionDirs>
+        <endorsedDirs>
+            <entry path="D:\Arquivos de Programas\Java\jdk1.8.0_211\jre\lib\endorsed"/>
+        </endorsedDirs>
+    </libraryInfo>
+    <libraryInfo home="C:\Program Files\Java\jdk-13.0.2" version="13.0.2"/>
+</libraryInfos>

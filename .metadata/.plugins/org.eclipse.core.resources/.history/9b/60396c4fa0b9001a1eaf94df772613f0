@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Bem-vindo ao SportsTradingBook</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div th:replace="fragments/fragments :: header"></div>
+	<div class="container">
+		<div class="row">
+		<div class="col-md-4 col-xs-12">
+			<div class="form-group">
+				<form:select th:field="banca.id" cssClass="form-control">
+					<form:options items="${albuns}" itemLabel="nome" itemValue="id"/>
+				</form:select>
+			</div>
+		</div>
+	</div>
+	</div>
+</body>
+</html>

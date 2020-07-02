@@ -1,0 +1,7 @@
+package com.traderbook.domains;
+
+public abstract class Pais {
+	
+	private String nome;
+
+}

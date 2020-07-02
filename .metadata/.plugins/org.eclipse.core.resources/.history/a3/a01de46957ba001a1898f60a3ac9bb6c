@@ -1,0 +1,5 @@
+package com.traderbook.repositories;
+
+public interface RepositorioDeposito {
+
+}

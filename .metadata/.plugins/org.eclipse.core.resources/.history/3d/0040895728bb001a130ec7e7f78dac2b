@@ -1,0 +1,59 @@
+package com.traderbook.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.traderbook.domains.Banca;
+import com.traderbook.domains.Deposito;
+import com.traderbook.repositories.RepositorioBanca;
+import com.traderbook.repositories.RepositorioDeposito;
+
+@Controller
+@RequestMapping("/bank")
+public class BancaController {
+	
+	@Autowired
+	private RepositorioBanca repositorioBanca;
+	@Autowired
+	private RepositorioDeposito repositorioDeposito;
+	
+	@GetMapping("/add")
+	public ModelAndView inserir() {
+		ModelAndView result = new ModelAndView("banca/inserir");
+		Banca banca = new Banca();
+		result.addObject("banca", banca);
+		return result;
+	}
+	
+	@PostMapping("/add")
+	public String inserir(Banca banca) {
+		repositorioBanca.save(banca);
+		return "redirect:/";
+	}
+	
+	@GetMapping("/deposit")
+	public ModelAndView depositar(@PathVariable Long id) {
+		Banca banca = repositorioBanca.getOne(id);
+		Deposito deposito = new Deposito();
+		ModelAndView result = new ModelAndView("banca/depositar");
+		result.addObject("banca", banca);
+		result.addObject("deposito", deposito);
+		return result;
+	}
+	
+	@PostMapping("/deposit/{id}")
+	public String depositar(@PathVariable("id") Long id, Deposito deposito) {
+		Banca banca = repositorioBanca.getOne(id);
+		double valorAtualizado = banca.getSaldo() + deposito.getValor();
+		banca.setSaldo(valorAtualizado);
+		repositorioBanca.save(banca);
+		repositorioDeposito.save(deposito);
+		return "redirect:/";
+	}
+
+}

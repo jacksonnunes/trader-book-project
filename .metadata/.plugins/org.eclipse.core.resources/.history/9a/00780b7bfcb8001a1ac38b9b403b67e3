@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<title>Listagem das Operações</title>
+	<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+	<script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+	<div th:replace="index"></div>
+	<p>Lista de Operações</p>
+</body>
+</html>
