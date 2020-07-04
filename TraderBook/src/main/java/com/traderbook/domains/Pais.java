@@ -1,10 +1,13 @@
 package com.traderbook.domains;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -24,6 +27,9 @@ public class Pais {
 	@NotNull(message = "O preenchimento é obrigatório.")
 	@Length(min = 3, max = 20, message = "O nome do país deve conter entre 3 e 20 caracteres.")
 	private String nomePais;
+	
+	@OneToMany(mappedBy = "pais")
+	private Set<Competicao> competicoes;
 
 	public Long getId() {
 		return id;
@@ -39,6 +45,14 @@ public class Pais {
 
 	public void setNomePais(String nomePais) {
 		this.nomePais = nomePais;
+	}
+
+	public Set<Competicao> getCompeticoes() {
+		return competicoes;
+	}
+
+	public void setCompeticoes(Set<Competicao> competicoes) {
+		this.competicoes = competicoes;
 	}
 
 }

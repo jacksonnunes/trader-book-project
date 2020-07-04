@@ -1,0 +1,10 @@
+package com.traderbook.controllers;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class MetodosController {
+	
+	
+
+}

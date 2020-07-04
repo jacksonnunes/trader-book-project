@@ -33,6 +33,11 @@ public class Operacao {
 	@NotNull(message = "Campo obrigatório.")
 	private Date data;
 	
+	@NotNull(message = "Escolher banca.")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ban_id")
+	private Banca bancaOperacao;
+	
 	@NotNull(message = "Preencher informações.")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "mkt_id")
@@ -53,15 +58,15 @@ public class Operacao {
 	@Size(min = 5, max = 100, message = "Este campo deve conter entre 5 e 100 caracteres.")
 	private String evento;
 	
-	@Column(name = "ope_valor_investido", nullable = false)
+	@Column(name = "ope_valor_investido", precision = 2, nullable = false)
 	@NotNull(message = "Preencher informações.")
 	@Positive(message = "O valor deve ser positivo.")
 	private double valorInvestido;
 	
-	@Column(name = "ope_valor_retorno")
+	@Column(name = "ope_valor_retorno", precision = 2)
 	private double valorRetorno;
 	
-	@Column(name = "ope_roi")
+	@Column(name = "ope_roi", precision = 2)
 	private double ROI;
 
 	public Long getId() {

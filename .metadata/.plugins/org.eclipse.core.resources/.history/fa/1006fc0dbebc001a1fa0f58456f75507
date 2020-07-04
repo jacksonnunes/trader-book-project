@@ -1,0 +1,20 @@
+package com.traderbook.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.traderbook.repositories.RepositorioOperacao;
+
+@Controller
+public class OperacoesController {
+	
+	@Autowired
+	private RepositorioOperacao repositorioOperacao;
+	
+	@RequestMapping(value = "/listar-operacoes")
+	public String listar() {
+		return "operations";
+	}
+
+}

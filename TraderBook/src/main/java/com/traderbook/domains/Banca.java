@@ -31,12 +31,15 @@ public class Banca {
 	@Length(min = 3, max = 15, message = "O nome da banca precisa conter entre 3 e 15 caracteres.")
 	private String nomeBanca;
 	
-	@Column(name = "ban_saldo")
+	@Column(name = "ban_saldo", precision = 2)
 	@Positive(message = "O valor não pode ser negativo.")
 	private double saldo;
 	
-	@OneToMany(mappedBy = "banca", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = false)
+	@OneToMany(mappedBy = "banca", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = false)
 	private List<Deposito> depositos;
+	
+	@OneToMany(mappedBy = "bancaOperacao", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
+	private List<Operacao> operacoes;
 
 	public Long getId() {
 		return id;

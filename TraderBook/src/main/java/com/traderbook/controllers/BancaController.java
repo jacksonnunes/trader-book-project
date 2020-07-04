@@ -56,6 +56,7 @@ public class BancaController {
 	public ModelAndView depositar(@PathVariable Long id) {
 		Banca banca = repositorioBanca.getOne(id);
 		Deposito deposito = new Deposito(new Date());
+		deposito.setBanca(new Banca());
 		ModelAndView result = new ModelAndView("banca/depositar");
 		result.addObject("bancas", banca);
 		result.addObject("deposito", deposito);
@@ -66,7 +67,6 @@ public class BancaController {
 	public String depositar(Banca banca, Deposito deposito) {
 		double valorAtualizado = banca.getSaldo() + deposito.getValor();
 		banca.setSaldo(valorAtualizado);
-		deposito.setBanca(banca);
 		repositorioDeposito.save(deposito);
 		repositorioBanca.save(banca);
 		return "redirect:/";

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>SportsTradingBook: Editar Banca</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div th:replace="fragments/fragments :: header"></div>
+	<h2 class="text-center">Operações</h2>
+	<a class="btn btn-primary" th:href="@{/operations/add}">Cadastrar operações</a>
+	<table class="table table-sm">
+		<thead>
+			<tr>
+				<th scope="col">Data</th>
+				<th scope="col">Banca</th>
+				<th scope="col">Mercado</th>
+				<th scope="col">Estrategia</th>
+				<th scope="col">Competição</th>
+				<th scope="col">Evento</th>
+				<th scope="col">Valor Investido</th>
+				<th scope="col">Retorno</th>
+				<th scope="col">ROI</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="operacao: ${operacoes}">
+				<td th:text="${operacao.data}"></td>
+				<td th:text="${operacao.mercado}"></td>
+				<td th:text="${operacao.estrategia}"></td>
+				<td th:text="${operacao.competicao}"></td>
+				<td th:text="${operacao.evento}"></td>
+				<td th:text="${operacao.valorInvestido}"></td>
+				<td th:text="${operacao.valorRetorno}"></td>
+				<td th:text="${operacao.ROI}"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

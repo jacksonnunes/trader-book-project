@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -22,7 +24,6 @@ public class Competicao {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "com_id")
 	private Long id;
 	
 	@Column(name = "com_nome", length = 25, nullable = false)
@@ -31,7 +32,12 @@ public class Competicao {
 	@Length(min = 3, max = 25, message = "O nome da competição deve conter entre 3 e 25 caracteres.")
 	private String nome;
 	
-	@OneToMany(mappedBy = "competicao", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
+	@NotNull(message = "Escolher país.")
+	@ManyToOne
+	@JoinColumn(name = "cnt_id")
+	private Pais pais;
+	
+	@OneToMany(mappedBy = "competicao", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private List<Operacao> operacao;
 
 	public Long getId() {
@@ -48,6 +54,22 @@ public class Competicao {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}
+
+	public List<Operacao> getOperacao() {
+		return operacao;
+	}
+
+	public void setOperacao(List<Operacao> operacao) {
+		this.operacao = operacao;
 	}
 
 }

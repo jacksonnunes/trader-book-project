@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Bem-vindo ao SportsTradingBook</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div th:replace="fragments/fragments :: header"></div>
+	<div class="container">
+	
+		<!-- Listagem de campeonatos por países -->
+		<div class="shadow-sm p-3 mb-5 bg-white rounded-lg">
+			<div class="shadow-sm p-3 mb-5 bg-white rounded-lg d-inline-block col-4">
+				<h4>Campeonatos</h4>
+				<a class="btn btn-primary">Adicionar País</a>
+				<a class="btn btn-primary">Adicionar Campeonato</a>
+				<table class="table table-sm table-hover" th:each="pais: ${paises}">
+					<thead>
+						<tr>
+							<th th:text="${pais.nomePais}"></th>
+							<th>
+								<a th:href="@{/country/edit/{id}(id=${pais.id})}">Editar</a> | 
+								<a th:href="@{/country/delete/{id}(id=${pais.id})}">Excluir</a>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="competicao: ${pais.competicoes}">
+							<td th:text="${pais.competicoes.nome}"></td>
+							<td>
+								<a th:href="@{/country/edit/{id}(id=${pais.competicao.id})}">Editar</a> | 
+								<a th:href="@{/country/delete/{id}(id=${pais.competicao.id})}">Excluir</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<!-- Listagem de estratégias por mercado -->
+		
+	</div>
+</body>
+</html>

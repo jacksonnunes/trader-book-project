@@ -22,7 +22,7 @@
 				<li class="nav-item active"><a class="nav-link" href="/">Início
 						<span class="sr-only">(current)</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link" href="/listar-operacoes">Operações</a></li>
+				<li class="nav-item dropdown"><a class="nav-link" th:href="@{/operations/list}">Operações</a></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -32,8 +32,7 @@
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="#">Remover</a>
 					</div></li>
-				<li class="nav-item"><a class="nav-link disabled" href="#"
-					tabindex="-1" aria-disabled="true">Disabled</a></li>
+				<li class="nav-item"><a class="nav-link	" th:href="@{/methods/index}" aria-disabled="true">Configurações</a></li>
 			</ul>
 		</div>
 	</nav>
