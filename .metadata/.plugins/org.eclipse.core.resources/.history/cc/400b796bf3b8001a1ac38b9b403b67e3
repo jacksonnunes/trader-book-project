@@ -1,7 +1,0 @@
-package com.traderbook.repositories;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface RepositorioOperacao extends JpaRepository<Operacao, Long> {
-
-}

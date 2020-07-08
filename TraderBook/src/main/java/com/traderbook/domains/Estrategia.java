@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -22,7 +24,6 @@ public class Estrategia {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "str_id")
 	private Long id;
 	
 	@Column(name = "str_nome", length = 20, nullable = false)
@@ -31,7 +32,12 @@ public class Estrategia {
 	@Length(min = 3, max = 20, message = "O nome da estratégia precisa conter entre 3 e 20 caracteres.")
 	private String nome;
 	
-	@OneToMany(mappedBy = "estrategia", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@NotNull(message = "Escolher mercado.")
+	@JoinColumn(name = "mkt_id")
+	private Mercado estrategiaMercado;
+	
+	@OneToMany(mappedBy = "estrategia", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private List<Operacao> operacao;
 
 	public Long getId() {
@@ -48,6 +54,14 @@ public class Estrategia {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Mercado getEstrategiaMercado() {
+		return estrategiaMercado;
+	}
+
+	public void setEstrategiaMercado(Mercado estrategiaMercado) {
+		this.estrategiaMercado = estrategiaMercado;
 	}
 
 	public List<Operacao> getOperacao() {

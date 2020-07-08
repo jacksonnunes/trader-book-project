@@ -13,8 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -60,7 +60,7 @@ public class Operacao {
 	
 	@Column(name = "ope_valor_investido", precision = 2, nullable = false)
 	@NotNull(message = "Preencher informações.")
-	@Positive(message = "O valor deve ser positivo.")
+	@Min(value = 0, message = "O valor deve ser positivo.")
 	private double valorInvestido;
 	
 	@Column(name = "ope_valor_retorno", precision = 2)
@@ -68,6 +68,20 @@ public class Operacao {
 	
 	@Column(name = "ope_roi", precision = 2)
 	private double ROI;
+	
+	//Este valor é repassado quando altera a operação, para atualização do saldo da banca
+	@Column(name = "ope_valor_anterior", precision = 2)
+	private double valorAnterior;
+	
+	public Operacao() {
+		new Date();
+		new Banca();
+		new Mercado();
+		new Estrategia();
+		new Competicao();
+		this.valorInvestido = 0.0;
+		this.valorAnterior = 0.0;
+	}
 
 	public Long getId() {
 		return id;
@@ -83,6 +97,14 @@ public class Operacao {
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+
+	public Banca getBancaOperacao() {
+		return bancaOperacao;
+	}
+
+	public void setBancaOperacao(Banca bancaOperacao) {
+		this.bancaOperacao = bancaOperacao;
 	}
 
 	public Mercado getMercado() {
@@ -139,6 +161,14 @@ public class Operacao {
 
 	public void setROI(double rOI) {
 		ROI = rOI;
+	}
+
+	public double getValorAnterior() {
+		return valorAnterior;
+	}
+
+	public void setValorAnterior(double valorAnterior) {
+		this.valorAnterior = valorAnterior;
 	}
 
 }

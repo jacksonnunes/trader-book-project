@@ -40,9 +40,9 @@ public class MetodosController {
 		paises.sort((p1, p2) -> {
 			return p1.getNomePais().compareTo(p2.getNomePais());
 		});
-		
-		competicoes.sort((c1, c2) -> {
-			return c1.getNome().compareTo(c2.getNome());
+		//Ordenando mercados por ordem alfabética
+		mercados.sort((m1, m2) -> {
+			return m1.getMercado().compareTo(m2.getMercado());
 		});
 		
 		ModelAndView result = new ModelAndView("metodos/listar");

@@ -11,11 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 @Entity
 @Table(name = "ban_banks")
@@ -32,13 +34,17 @@ public class Banca {
 	private String nomeBanca;
 	
 	@Column(name = "ban_saldo", precision = 2)
-	@Positive(message = "O valor não pode ser negativo.")
+	@Min(value = 0, message = "O valor não pode ser negativo.")
+	@NumberFormat(style = Style.CURRENCY, pattern = "#,###.##")
 	private double saldo;
 	
-	@OneToMany(mappedBy = "banca", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = false)
+	@OneToMany(mappedBy = "banca", fetch = FetchType.LAZY)
 	private List<Deposito> depositos;
 	
-	@OneToMany(mappedBy = "bancaOperacao", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
+	@OneToMany(mappedBy = "banca", fetch = FetchType.LAZY)
+	private List<Saque> saques;
+	
+	@OneToMany(mappedBy = "bancaOperacao", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private List<Operacao> operacoes;
 
 	public Long getId() {
@@ -71,6 +77,22 @@ public class Banca {
 
 	public void setDepositos(List<Deposito> depositos) {
 		this.depositos = depositos;
+	}
+
+	public List<Saque> getSaques() {
+		return saques;
+	}
+
+	public void setSaques(List<Saque> saques) {
+		this.saques = saques;
+	}
+
+	public List<Operacao> getOperacoes() {
+		return operacoes;
+	}
+
+	public void setOperacoes(List<Operacao> operacoes) {
+		this.operacoes = operacoes;
 	}
 
 }

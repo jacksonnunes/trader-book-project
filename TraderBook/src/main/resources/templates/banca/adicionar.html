@@ -2,32 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
-<title>Cadastro de Banca</title>
+<title>SportsTradingBook: Cadastro de Banca</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
 <script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<script src="../jquery.mask.min.js"></script>
 </head>
 <body>
 	<div th:replace="fragments/fragments :: header"></div>
-	<div class="justify-content-around">
+	<div class="container">
 		<h2 class="text-center">Cadastrar Banca</h2>
 		<form class="form-horizontal" action="/bank/add" method="post" th:object="${banca}">
 			<div class="row">
 				<div class="form-group col-md-5">
 					<label for="bank-name">Nome da Banca:</label> 
 					<input type="text" class="form-control" id="bank-name" th:field="*{nomeBanca}" />
+					<p class="text-danger" th:if="${#fields.hasErrors('nomeBanca')}" th:errors="*{nomeBanca}"></p>
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-md-5">
 					<label for="bank-balance">Saldo:</label> 
 					<input type="text" class="form-control" id="bank-balance" th:field="*{saldo}"/>
+					<p class="text-danger" th:if="${#fields.hasErrors('saldo')}" th:errors="*{saldo}"></p>
 				</div>
 			</div>
 			<div class="row">
-				<input type="submit" value="Salvar" class="btn btn-primary"/>
+				<div class="form-group col-md-5">
+					<input type="submit" value="Salvar" class="btn btn-primary"/>
+				</div>
 			</div>
 		</form>
 	</div>
+	
+	<!-- mask para o campo saldo -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#bank-balance').mask('000,000,000.00', {reverse: true});
+		});
+	</script>
 </body>
 </html>

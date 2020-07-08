@@ -1,3 +1,0 @@
-spring.thymeleaf.mode=HTML5
-spring.thymeleaf.cache=false
-server.port=8084

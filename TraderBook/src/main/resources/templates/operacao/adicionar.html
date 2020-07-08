@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>SportsTradingBook: Cadastrar Operação</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div th:replace="fragments/fragments :: header"></div>
+	<div class="container">
+		<h2 class="text-center">Cadastrar Operação</h2>
+		<form class="form-horizontal" action="/operations/add" method="post" th:object="${operacao}">
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="op-date">Data:</label>
+					<input type="text" class="form-control" id="op-date" th:field="*{data}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="slt-bank">Banca:</label>
+					<select id="slt-bank" class="form-control" th:field="*{bancaOperacao.id}">
+						<option th:each="bancaOperacao: ${bancas}" th:value="${bancaOperacao.id}" th:text="${bancaOperacao.nomeBanca}"/>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="slt-market">Mercado:</label>
+					<select id="slt-market" class="form-control" th:field="*{mercado.id}">
+						<option th:each="mercado: ${mercados}" th:value="${mercado.id}" th:text="${mercado.mercado}"/>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="slt-strategy">Estratégia:</label>
+					<select id="slt-strategy" class="form-control" th:field="*{estrategia.id}">
+						<option th:each="estrategia: ${estrategias}" th:value="${estrategia.id}" th:text="${estrategia.nome}"/>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="slt-competition">Competição:</label>
+					<select id="slt-competition" class="form-control" th:field="*{competicao.id}">
+						<option th:each="competicao: ${competicoes}" th:value="${competicao.id}" th:text="${competicao.nome}"/>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="op-event">Evento:</label>
+					<input type="text" class="form-control" id="op-event" th:field="*{evento}" placeholder="Time A x Time B" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="op-value">Valor investido:</label>
+					<input type="text" class="form-control" id="op-value" th:field="*{valorInvestido}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="op-return">Retorno:</label>
+					<input type="text" class="form-control" id="op-return" th:field="*{valorRetorno}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<input type="submit" value="Salvar" class="btn btn-primary"/>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

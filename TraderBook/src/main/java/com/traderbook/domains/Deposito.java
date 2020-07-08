@@ -45,8 +45,8 @@ public class Deposito {
 	public Deposito() {	}
 	
 	public Deposito(Date data) {
-		this.valor = 0.0;
 		this.data = data;
+		this.banca = new Banca();
 	}
 
 	public Long getId() {

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +21,6 @@ public class Mercado {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "mkt_id")
 	private Long id;
 
 	@Column(name = "mkt_nome", length = 20, nullable = false)
@@ -30,8 +28,11 @@ public class Mercado {
 	@NotNull(message = "O preenchimento é obrigatório.")
 	@Length(min = 3, max = 20, message = "O nome do mercado precisa conter entre 3 e 20 caracteres.")
 	private String mercado;
+	
+	@OneToMany(mappedBy = "estrategiaMercado")
+	private List<Estrategia> estrategias;
 
-	@OneToMany(mappedBy = "mercado", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
+	@OneToMany(mappedBy = "mercado", cascade = CascadeType.MERGE)
 	private List<Operacao> operacoes;
 
 	public Long getId() {
@@ -50,11 +51,19 @@ public class Mercado {
 		this.mercado = mercado;
 	}
 
-	public List<Operacao> getOperacao() {
+	public List<Estrategia> getEstrategias() {
+		return estrategias;
+	}
+
+	public void setEstrategias(List<Estrategia> estrategias) {
+		this.estrategias = estrategias;
+	}
+
+	public List<Operacao> getOperacoes() {
 		return operacoes;
 	}
 
-	public void setOperacao(List<Operacao> operacao) {
+	public void setOperacoes(List<Operacao> operacao) {
 		this.operacoes = operacao;
 	}
 

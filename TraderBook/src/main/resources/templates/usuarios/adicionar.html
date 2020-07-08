@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>SportsTradingBook: Cadastrar Usuário</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div th:replace="fragments/fragments :: header"></div>
+	<div class="container">
+		<h2 class="text-center">Cadastrar usuário</h2>
+		<form class="form-horizontal" action="/users/add" method="post" th:object="${usuario}">
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="username">Primeiro nome:</label>
+					<input type="text" class="form-control" id="username" th:field="*{nome}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="surname">Sobrenome:</label>
+					<input type="text" class="form-control" id="surname" th:field="*{sobrenome}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="nickname">Como gostaria de ser chamado(a)?:</label>
+					<input type="text" class="form-control" id="nickname" th:field="*{apelido}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="birthdate">Data de nascimento:</label>
+					<input type="text" class="form-control" id="birthdate" th:field="*{dataNascimento}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="age">Idade:</label>
+					<input type="text" class="form-control" id="age" th:field="*{idade}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="country">País:</label>
+					<input type="text" class="form-control" id="country" th:field="*{pais}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="password">Senha:</label>
+					<input type="password" class="form-control" id="password" th:field="*{pais}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="slt-role">País da Competição:</label>
+					<select id="slt-role" class="form-control" th:field="*{role}">
+						<option th:value="USER_ADMIN">Administrador</option>
+						<option th:value="USER_VISIT">Visitante</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<input type="submit" value="Salvar" class="btn btn-primary"/>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

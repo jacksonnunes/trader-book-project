@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>SportsTradingBook: Lista de usuários</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<!-- Google Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<!-- Font Awesome Icons -->
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+</head>
+<body>
+	<div th:replace="fragments/fragments :: header"></div>
+	<h2 class="text-center">Operações</h2>
+	<a class="btn btn-primary" style="margin: 5px;" th:href="@{/users/add}"><i class='fas fa-plus'></i>  Cadastrar novo usuário</a><br/><br/>
+	<table class="table table-sm table-hover">
+		<thead>
+			<tr>
+				<th scope="col">Nome</th>
+				<th scope="col">Sobrenome</th>
+				<th scope="col">Apelido</th>
+				<th scope="col">dataNascimento</th>
+				<th scope="col">Idade</th>
+				<th scope="col">País</th>
+				<th scope="col">Email</th>
+				<th scope="col">Role</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="usuario: ${usuarios}">
+				<td th:text="${usuario.nome}"></td>
+				<td th:text="${usuario.sobrenome}"></td>
+				<td th:text="${usuario.apelido}"></td>
+				<td th:text="${#dates.format(usuario.dataNascimento, 'dd/MM/yyyy')}"></td>
+				<td th:text="${usuario.idade}"></td>
+				<td th:text="${usuario.pais}"></td>
+				<td th:text="${usuario.email}"></td>
+				<td th:text="${usuario.role}"></td>
+				<td>
+					<a th:href="@{/users/edit/{id}(id=${operacao.id})}"><i class="material-icons">edit</i></a>     
+					<a th:href="@{/users/delete/{id}(id=${operacao.id})}"><i class="material-icons">delete</i></a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

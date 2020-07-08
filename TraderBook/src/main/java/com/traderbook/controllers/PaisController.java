@@ -27,7 +27,7 @@ public class PaisController {
 		return result;
 	}
 	
-	@PostMapping("add")
+	@PostMapping("/add")
 	public String adicionar(Pais pais) {
 		repositorioPais.save(pais);
 		return "redirect:/methods/index";

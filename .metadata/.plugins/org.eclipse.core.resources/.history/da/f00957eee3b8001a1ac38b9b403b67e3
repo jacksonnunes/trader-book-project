@@ -1,9 +1,0 @@
-package com.traderbook.domains;
-
-public abstract class Pais {
-	
-	private Long id;
-	
-	private String nome;
-
-}

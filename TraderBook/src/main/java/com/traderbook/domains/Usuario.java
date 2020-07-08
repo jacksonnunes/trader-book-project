@@ -111,6 +111,14 @@ public class Usuario {
 		this.dataNascimento = dataNascimento;
 	}
 
+	public int getIdade() {
+		return idade;
+	}
+
+	public void setIdade(int idade) {
+		this.idade = idade;
+	}
+
 	public String getPais() {
 		return pais;
 	}

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
-<title>Cadastro de Banca</title>
+<title>SportsTradingBook: Editar Competição</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
 <script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
@@ -10,7 +10,7 @@
 <body>
 	<div th:replace="fragments/fragments :: header"></div>
 	<div class="container">
-		<h2 class="text-center">Cadastrar Competição</h2>
+		<h2 class="text-center">Editar Competição</h2>
 		<form class="form-horizontal" action="/competition/add" method="post" th:object="${competicao}">
 			<input type="hidden" th:field="*{id}"/>
 			<div class="row">
@@ -22,13 +22,15 @@
 			<div class="row">
 				<div class="form-group col-md-5">
 					<label for="slt-country">País da Competição:</label>
-					<select class="form-control" th:field="*{pais.id}">
+					<select id="slt-country" class="form-control" th:field="*{pais.id}">
 						<option th:each="pais: ${paises}" th:value="${pais.id}" th:text="${pais.nomePais}"/>
 					</select>
 				</div>
 			</div>
 			<div class="row">
-				<input type="submit" value="Salvar" class="btn btn-primary"/>
+				<div class="form-group col-md-5">
+					<input type="submit" value="Salvar" class="btn btn-primary"/>
+				</div>
 			</div>
 		</form>
 	</div>

@@ -2,16 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>SportsTradingBook: Editar Banca</title>
+<title>SportsTradingBook: Operações</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<!-- Google Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<!-- Font Awesome Icons -->
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </head>
 <body>
 	<div th:replace="fragments/fragments :: header"></div>
 	<h2 class="text-center">Operações</h2>
-	<a class="btn btn-primary" style="margin: 5px;" th:href="@{/operations/add}">Cadastrar operações</a>
-	<table class="table table-sm">
+	<a class="btn btn-primary" style="margin: 5px;" th:href="@{/operations/add}"><i class='fas fa-plus'></i>  Cadastrar operações</a><br/><br/>
+	<table class="table table-sm table-hover">
 		<thead>
 			<tr>
 				<th scope="col">Data</th>
@@ -23,18 +27,31 @@
 				<th scope="col">Valor Investido</th>
 				<th scope="col">Retorno</th>
 				<th scope="col">ROI</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="operacao: ${operacoes}">
-				<td th:text="${operacao.data}"></td>
-				<td th:text="${operacao.mercado}"></td>
-				<td th:text="${operacao.estrategia}"></td>
-				<td th:text="${operacao.competicao}"></td>
+				<td th:text="${#dates.format(operacao.data, 'dd/MM/yyyy')}"></td>
+				<td th:text="${operacao.bancaOperacao.nomeBanca}"></td>
+				<td th:text="${operacao.mercado.mercado}"></td>
+				<td th:text="${operacao.estrategia.nome}"></td>
+				<td th:text="${operacao.competicao.nome}"></td>
 				<td th:text="${operacao.evento}"></td>
-				<td th:text="${operacao.valorInvestido}"></td>
-				<td th:text="${operacao.valorRetorno}"></td>
-				<td th:text="${operacao.ROI}"></td>
+				<td th:text="'$ ' + ${#numbers.formatDecimal(operacao.valorInvestido, 0, 'POINT', 2, 'COMMA')}"></td>
+				
+				<td th:if="${operacao.valorRetorno != 0}" th:style="${operacao.valorRetorno > 0 ? 'color: green' : 'color: red'}" 
+					th:text="'$ ' + ${#numbers.formatDecimal(operacao.valorRetorno, 0, 'POINT', 2, 'COMMA')}"></td>
+				<td th:unless="${operacao.valorRetorno != 0}" th:text="''"></td>
+				<!-- Condicional testa se ROI é diferente de zero, caso contrário, não imprime nada na tela -->
+				<td th:if="${operacao.ROI != 0}" th:style="${operacao.ROI > 0 ? 'color: green' : 'color: red'}" 
+					th:text="${#numbers.formatPercent(operacao.ROI, 0, 2)}"></td>
+				<td th:unless="${operacao.ROI != 0}" th:text="''"></td>
+					
+				<td>
+					<a th:href="@{/operations/edit/{id}(id=${operacao.id})}"><i class="material-icons">edit</i></a>     
+					<a th:href="@{/operations/delete/{id}(id=${operacao.id})}"><i class="material-icons">delete</i></a>
+				</td>
 			</tr>
 		</tbody>
 	</table>

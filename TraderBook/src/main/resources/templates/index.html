@@ -4,24 +4,96 @@
 <meta charset="UTF-8" />
 <title>Bem-vindo ao SportsTradingBook</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div th:replace="fragments/fragments :: header"></div>
-	<div class="container-xl border">
+	<div class="container-flex bg-secondary">
+	
+		<!-- Listagem das bancas -->
+		<div class="d-flex flex-wrap justify-content-center align-items-start">
+			<div class="col-md-5 col-sm-12 d-inline-block m-1 shadow rounded bg-light">
+				<div class="d-flex flex-wrap justify-content-around p-0">
+					<div class="col-lg-5 col-md-11 col-sm-11 col-xs-12 d-inline-block my-2 p-3 mx-1 shadow-sm rounded bg-white" th:each="banca: ${bancas}">
+						<h5 class="float-left" th:text="${banca.nomeBanca}"></h5><h5 class="float-right" th:text="'$ ' + ${#numbers.formatDecimal(banca.saldo, 0, 'POINT', 2, 'COMMA')}"></h5>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Gráfico -->
+			<div class="col-md-6 col-sm-12 d-inline-block m-1 shadow rounded bg-light">
+				<div class="d-flex flex-wrap justify-content-center">
+					<div class="col-md-11 col-sm-11 my-3 mx-1 p-3 rounded border" id="graphic_div">
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Listagem das últimas operações -->
+		
+		
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		
 		<h2 class="text-center">Bancas</h2>
-		<div class="justify-content-center border">
-		<div class="card text-center d-inline-block col-lg-3 col-md-4 col-sm-10 m-1" th:each="banca : ${bancas}">
-			<h5 class="card-header " th:text="${banca.nomeBanca}"></h5>
-			<p class="card-body" th:text="'US$ ' + ${banca.saldo}"></p>
-			<div class="card-footer">
+		<div class="border d-block col-4">
+		<div class="card col-lg-12 col-md-4 col-sm-10 mx-auto my-2 px-0" th:each="banca : ${bancas}">
+			<div class="card-header">
+				<h5 class="text-center" th:text="${banca.nomeBanca}"></h5>
+			</div>
+			<p class="card-body text-center" th:text="'$ ' + ${#numbers.formatDecimal(banca.saldo, 0, 'POINT', 2, 'COMMA')}"></p>
+			<div class="card-footer text-center">
 				<a th:href="@{/bank/deposit/{id}(id=${banca.id})}" class="btn btn-primary">Depósito</a>	
-				<a th:href="@{/bank/withdraw/{id}(id=${banca.id})}" class="btn btn-success">Saque</a>
-				<a th:href="@{/bank/edit/{id}(id=${banca.id})}">Edit</a>
+				<a th:href="@{/bank/withdraw/{id}(id=${banca.id})}" class="btn btn-success">Saque</a><br/>
+				<a th:href="@{/bank/edit/{id}(id=${banca.id})}"><i class="material-icons">edit</i></a>
 			</div>
 		</div>
 		</div>
 	</div>
+	
+	<!-- Google Charts ** Gráficos -->
+	<script src="https://www.gstatic.com/charts/loader.js"></script>
+	<script>
+		google.charts.load('current', {packages: ['corechart', 'line']});
+		google.charts.setOnLoadCallback(drawBasic);
+
+		function drawBasic() {
+			
+			var data = new google.visualization.DataTable();
+			data.addColumn('date', 'X');
+			data.addColumn('number', 'Saldo');
+			
+			data.addRows([
+				[new Date(2020, 6, 29), 350.00],
+				[new Date(2020, 7, 1), 357.80],
+				[new Date(2020, 7, 2), 354.35],
+				[new Date(2020, 7, 3), 358.10],
+				[new Date(2020, 7, 4), 365.20],
+				[new Date(2020, 7, 5), 372.10],
+				[new Date(2020, 7, 6), 361.33],
+				[new Date(2020, 7, 7), 368.45],
+				[new Date(2020, 7, 8), 382.26],
+				[new Date(2020, 7, 9), 375.12],
+				[new Date(2020, 7, 10), 384.57],
+				[new Date(2020, 7, 11), 369.45],
+				[new Date(2020, 7, 12), 378.18]
+			]);
+			
+			var options = {
+				hAxis: {
+					title: 'Data'
+				},
+				vAxis: {
+					title: 'Saldo'
+				}
+			};
+			
+			var chart = new google.visualization.LineChart(document.getElementById('graphic_div'));
+			
+			chart.draw(data, options);
+			
+		}
+	</script>
 </body>
 </html>
