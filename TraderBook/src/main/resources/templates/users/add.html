@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>SportsTradingBook: Cadastrar Usuário</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div th:replace="fragments/fragments :: header"></div>
+	<div class="container">
+		<h2 class="text-center">Cadastrar usuário</h2>
+		<form class="form-horizontal" action="/users/add" method="post" th:object="${user}">
+			<div class="row">
+				<div class="form-group col-md-3">
+					<input type="text" class="form-control" id="username" th:field="*{name}" placeholder="Primeiro nome" />
+					<p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+				</div>
+				<div class="form-group col-md-3">
+					<input type="text" class="form-control" id="surname" th:field="*{surname}" placeholder="Sobrenome" />
+					<p class="text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<input type="text" class="form-control" id="nickname" th:field="*{nickname}" placeholder="Como gostaria de ser chamado(a)?"/>
+					<p class="text-danger" th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}"></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-3">
+					<label for="birthdate">Data de nascimento:</label>
+					<input type="text" class="form-control" id="birthdate" th:field="*{birthDate}" />
+					<p class="text-danger" th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}"></p>
+				</div>
+				<input type="hidden" th:field="*{age}"/>
+				<p class="text-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>
+				<div class="form-group col-md-3">
+					<label for="slt-country">País:</label>
+					<select class="form-control" id="slt-country" th:field="*{country.id}">
+						<option th:each="country: ${countries}" th:value="${country.id}" th:text="${country.name}"/>
+					</select>
+					<p class="text-danger" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-3">
+					<input type="email" class="form-control" id="email" th:field="*{email}" placeholder="Email" />
+					<p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+				</div>
+				<div class="form-group col-md-3">
+					<input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Senha" />
+					<p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<select id="slt-role" class="form-control" th:field="*{role}">
+						<option th:value="'USER_ADMIN'">Administrador</option>
+						<option th:value="'USER_VISIT'">Visitante</option>
+					</select>
+					<p class="text-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<input type="submit" value="Salvar" class="btn btn-primary"/>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

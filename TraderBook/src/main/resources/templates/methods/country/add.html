@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>SportsTradingBook: Cadastrar País</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div th:replace="fragments/fragments :: header"></div>
+	<div class="container">
+		<h2 class="text-center">Cadastrar País</h2>
+		<form class="form-horizontal" action="/country/add" method="post" th:object="${country}">
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="country-name">Nome do país:</label> 
+					<input type="text" class="form-control" id="country-name" th:field="*{name}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="slt-continent">Continente:</label>
+					<select id="slt-continent" class="form-control" th:field="*{continent.id}">
+						<option th:each="continent: ${continents}" th:value="${continent.id}" th:text="${continent.name}"/>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<input type="submit" value="Salvar" class="btn btn-primary"/>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

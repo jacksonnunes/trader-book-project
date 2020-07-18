@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8" />
 <title>Bem-vindo ao SportsTradingBook</title>
@@ -10,14 +11,16 @@
 </head>
 <body>
 	<div th:replace="fragments/fragments :: header"></div>
+<!-- 	<h4 sec:authorize="isAuthenticated">Bem vindo, <span sec:authentication="name"></span></h4> -->
 	<div class="container-flex bg-secondary">
+	<span sec:authentication="principal.authorities"></span>
 	
 		<!-- Listagem das bancas -->
 		<div class="d-flex flex-wrap justify-content-center align-items-start">
 			<div class="col-md-5 col-sm-12 d-inline-block m-1 shadow rounded bg-light">
 				<div class="d-flex flex-wrap justify-content-around p-0">
-					<div class="col-lg-5 col-md-11 col-sm-11 col-xs-12 d-inline-block my-2 p-3 mx-1 shadow-sm rounded bg-white" th:each="banca: ${bancas}">
-						<h5 class="float-left" th:text="${banca.nomeBanca}"></h5><h5 class="float-right" th:text="'$ ' + ${#numbers.formatDecimal(banca.saldo, 0, 'POINT', 2, 'COMMA')}"></h5>
+					<div class="col-lg-5 col-md-11 col-sm-11 col-xs-12 d-inline-block my-2 p-3 mx-1 shadow-sm rounded bg-white" th:each="bank: ${banks}">
+						<h5 class="float-left" th:text="${bank.name}"></h5><h5 class="float-right" th:text="${bank.currency} + ' ' + ${#numbers.formatDecimal(bank.balance, 0, 'POINT', 2, 'COMMA')}"></h5>
 					</div>
 				</div>
 			</div>
@@ -33,24 +36,24 @@
 		
 		<!-- Listagem das últimas operações -->
 		
-		
-		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-		
-		<h2 class="text-center">Bancas</h2>
-		<div class="border d-block col-4">
-		<div class="card col-lg-12 col-md-4 col-sm-10 mx-auto my-2 px-0" th:each="banca : ${bancas}">
-			<div class="card-header">
-				<h5 class="text-center" th:text="${banca.nomeBanca}"></h5>
-			</div>
-			<p class="card-body text-center" th:text="'$ ' + ${#numbers.formatDecimal(banca.saldo, 0, 'POINT', 2, 'COMMA')}"></p>
-			<div class="card-footer text-center">
-				<a th:href="@{/bank/deposit/{id}(id=${banca.id})}" class="btn btn-primary">Depósito</a>	
-				<a th:href="@{/bank/withdraw/{id}(id=${banca.id})}" class="btn btn-success">Saque</a><br/>
-				<a th:href="@{/bank/edit/{id}(id=${banca.id})}"><i class="material-icons">edit</i></a>
-			</div>
-		</div>
-		</div>
 	</div>
+<!-- 		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/> -->
+		
+<!-- 		<h2 class="text-center">Bancas</h2> -->
+<!-- 		<div class="border d-block col-4"> -->
+<!-- 		<div class="card col-lg-12 col-md-4 col-sm-10 mx-auto my-2 px-0" th:each="banca : ${bancas}"> -->
+<!-- 			<div class="card-header"> -->
+<!-- 				<h5 class="text-center" th:text="${banca.nomeBanca}"></h5> -->
+<!-- 			</div> -->
+<!-- 			<p class="card-body text-center" th:text="'$ ' + ${#numbers.formatDecimal(banca.saldo, 0, 'POINT', 2, 'COMMA')}"></p> -->
+<!-- 			<div class="card-footer text-center"> -->
+<!-- 				<a th:href="@{/bank/deposit/{id}(id=${banca.id})}" class="btn btn-primary">Depósito</a>	 -->
+<!-- 				<a th:href="@{/bank/withdraw/{id}(id=${banca.id})}" class="btn btn-success">Saque</a><br/> -->
+<!-- 				<a th:href="@{/bank/edit/{id}(id=${banca.id})}"><i class="material-icons">edit</i></a> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 	
 	<!-- Google Charts ** Gráficos -->
 	<script src="https://www.gstatic.com/charts/loader.js"></script>

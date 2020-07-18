@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>SportsTradingBook: Editar Operação</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div th:replace="fragments/fragments :: header"></div>
+	<div class="container">
+		<h2 class="text-center">Editar Operação</h2>
+		<form class="form-horizontal" action="/operations/edit" method="post" th:object="${operacao}">
+			<input type="hidden" th:field="*{id}"/>
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label for="op-date">Data:</label>
+					<input type="text" class="form-control" id="op-date" th:field="*{date}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label for="slt-bank">Banca:</label>
+					<select id="slt-bank" class="form-control" th:field="*{bank.id}">
+						<option th:each="bank: ${banks}" th:value="${bank.id}" th:text="${bank.name}"/>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label for="slt-aspect">Aspecto da operação:</label>
+					<select id="slt-aspect" class="form-control" th:field="*{aspect.id}">
+						<option th:each="aspect: ${aspects}" th:value="${aspect.id}" th:text="${aspect.name}"/>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label for="slt-market">Mercado:</label>
+					<select id="slt-market" class="form-control" th:field="*{market.id}">
+						<option th:each="market: ${markets}" th:value="${market.id}" th:text="${market.name}"/>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label for="slt-strategy">Estratégia:</label>
+					<select id="slt-strategy" class="form-control" th:field="*{strategy.id}">
+						<option th:each="strategy: ${strategies}" th:value="${strategy.id}" th:text="${strategy.nome}"/>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label for="slt-competition">Competição:</label>
+					<select id="slt-competition" class="form-control" th:field="*{competition.id}">
+						<option th:each="competition: ${competitions}" th:value="${competition.id}" th:text="${competition.nome}"/>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-2">
+					<label for="op-event">Evento:</label>
+					<input type="text" class="form-control" id="op-event" th:field="*{teamOne}" placeholder="Time Casa" />
+				</div>
+				<div class="form-group col-md-2">
+					<label for="op-event">Evento:</label>
+					<input type="text" class="form-control" id="op-event" th:field="*{teamTwo}" placeholder="Time Visitante" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label for="op-value">Valor investido:</label>
+					<input type="text" class="form-control" id="op-value" th:field="*{investedValue}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label for="op-return">Retorno:</label>
+					<input type="text" class="form-control" id="op-return" th:field="*{returnedValue}" />
+				</div>
+			</div>
+			<input type="hidden" th:field="*{valorAnterior}"/>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<input type="submit" value="Salvar" class="btn btn-primary"/>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<!-- mask para o campo de valores -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#op-value').mask('000.000.000,00', {reverse: true});
+			$('#op-return').mask('000.000.000,00', {reverse: true});
+		});
+	</script>
+</body>
+</html>

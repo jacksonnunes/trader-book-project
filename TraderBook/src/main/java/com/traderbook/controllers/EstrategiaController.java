@@ -10,33 +10,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.traderbook.domains.Estrategia;
-import com.traderbook.domains.Mercado;
-import com.traderbook.repositories.RepositorioEstrategia;
-import com.traderbook.repositories.RepositorioMercado;
+import com.traderbook.domains.Strategy;
+import com.traderbook.domains.Market;
+import com.traderbook.repositories.StrategyRepository;
+import com.traderbook.repositories.MarketRepository;
 
 @Controller
 @RequestMapping("/strategy")
 public class EstrategiaController {
 	
 	@Autowired
-	private RepositorioEstrategia repositorioEstrategia;
+	private StrategyRepository repositorioEstrategia;
 	@Autowired
-	private RepositorioMercado repositorioMercado;
+	private MarketRepository repositorioMercado;
 	
 	@GetMapping("/add")
 	public ModelAndView adicionar() {
 		ModelAndView result = new ModelAndView("estrategia/adicionar");
-		Estrategia estrategia = new Estrategia();
-		estrategia.setEstrategiaMercado(new Mercado());
+		Strategy estrategia = new Strategy();
+		estrategia.setMarket(new Market());
 		result.addObject("estrategia", estrategia);
-		List<Mercado> mercados = repositorioMercado.findAll();
+		List<Market> mercados = repositorioMercado.findAll();
 		result.addObject("mercados", mercados);
 		return result;
 	}
 	
 	@PostMapping("/add")
-	public String adicionar(Estrategia estrategia) {
+	public String adicionar(Strategy estrategia) {
 		repositorioEstrategia.save(estrategia);
 		return "redirect:/methods/index";
 	}
@@ -50,7 +50,7 @@ public class EstrategiaController {
 	}
 	
 	@PostMapping("/edit")
-	public String editar(Estrategia estrategia) {
+	public String editar(Strategy estrategia) {
 		repositorioEstrategia.save(estrategia);
 		return "redirect:/methods/index";
 	}

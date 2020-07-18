@@ -19,7 +19,7 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="/">Início
+				<li class="nav-item active"><a class="nav-link" href="/home">Início
 						<span class="sr-only">(current)</span>
 				</a></li>
 				<li class="nav-item dropdown"><a class="nav-link" th:href="@{/operations/list}">Operações</a></li>
@@ -32,9 +32,16 @@
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="#">Remover</a>
 					</div></li>
-				<li class="nav-item"><a class="nav-link	" th:href="@{/users/list}" aria-disabled="true">Usuários</a></li>
-				<li class="nav-item"><a class="nav-link	" th:href="@{/methods/index}" aria-disabled="true">Configurações</a></li>
+				<li class="nav-item" th:if="${#authorization.expression('hasAuthority(''USER_ADMIN'')')}">
+					<a class="nav-link	" th:href="@{/users/list}" aria-disabled="true">Usuários</a>
+				</li>
+				<li class="nav-item" th:if="${#authorization.expression('hasAuthority(''USER_ADMIN'')')}">
+					<a class="nav-link	" th:href="@{/methods/index}" aria-disabled="true">Configurações</a>
+				</li>
 			</ul>
+			<form class="form-inline my-2 my-lg-0" action="/logout">
+				<input type="submit" class="btn btn-outline-light my-2 my-sm-0" value="Sair"/>
+			</form>
 		</div>
 	</nav>
 </body>

@@ -12,19 +12,28 @@
 	<div th:replace="fragments/fragments :: header"></div>
 	<div class="container">
 		<h2 class="text-center">Cadastrar Banca</h2>
-		<form class="form-horizontal" action="/bank/add" method="post" th:object="${banca}">
+		<form class="form-horizontal" action="/bank/add" method="post" th:object="${bank}">
 			<div class="row">
 				<div class="form-group col-md-5">
 					<label for="bank-name">Nome da Banca:</label> 
-					<input type="text" class="form-control" id="bank-name" th:field="*{nomeBanca}" />
-					<p class="text-danger" th:if="${#fields.hasErrors('nomeBanca')}" th:errors="*{nomeBanca}"></p>
+					<input type="text" class="form-control" id="bank-name" th:field="*{name}" />
+					<p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 				</div>
 			</div>
 			<div class="row">
-				<div class="form-group col-md-5">
+				<div class="form-group col-md-3">
+					<label for="slt-currency">Moeda</label>
+					<select class="form-control" id="slt-currency" th:field="*{currency}">
+						<option th:value="'US$'">Dólar Americano - US$</option>
+						<option th:value="'€'">Euro - €</option>
+						<option th:value="'£'">Libra - £</option>
+						<option th:value="'R$'">Real - R$</option>
+					</select>
+				</div>
+				<div class="form-group col-md-2">
 					<label for="bank-balance">Saldo:</label> 
-					<input type="text" class="form-control" id="bank-balance" th:field="*{saldo}"/>
-					<p class="text-danger" th:if="${#fields.hasErrors('saldo')}" th:errors="*{saldo}"></p>
+					<input type="text" class="form-control" id="bank-balance" th:field="*{balance}"/>
+					<p class="text-danger" th:if="${#fields.hasErrors('balance')}" th:errors="*{balance}"></p>
 				</div>
 			</div>
 			<div class="row">
@@ -38,7 +47,7 @@
 	<!-- mask para o campo saldo -->
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#bank-balance').mask('000,000,000.00', {reverse: true});
+			$('#bank-balance').mask('000.000.000,00', {reverse: true});
 		});
 	</script>
 </body>

@@ -10,36 +10,36 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.traderbook.domains.Competicao;
-import com.traderbook.domains.Pais;
-import com.traderbook.repositories.RepositorioCompeticao;
-import com.traderbook.repositories.RepositorioPais;
+import com.traderbook.domains.Competition;
+import com.traderbook.domains.Country;
+import com.traderbook.repositories.CompetitionRepository;
+import com.traderbook.repositories.CountryRepository;
 
 @Controller
 @RequestMapping("/competition")
 public class CompeticaoController {
 	
 	@Autowired
-	private RepositorioCompeticao repositorioCompeticao;
+	private CompetitionRepository repositorioCompeticao;
 	@Autowired
-	private RepositorioPais repositorioPais;
+	private CountryRepository repositorioPais;
 	
 	@GetMapping("/add")
 	public ModelAndView adicionar() {
 		ModelAndView result = new ModelAndView("competicao/adicionar");
-		Competicao competicao = new Competicao();
-		competicao.setPais(new Pais());
+		Competition competicao = new Competition();
+		competicao.setCountry(new Country());
 		result.addObject("competicao", competicao);
-		List<Pais> paises = repositorioPais.findAll();
+		List<Country> paises = repositorioPais.findAll();
 		paises.sort((p1, p2) -> {
-			return p1.getNomePais().compareTo(p2.getNomePais());
+			return p1.getName().compareTo(p2.getName());
 		});
 		result.addObject("paises", repositorioPais.findAll());
 		return result;
 	}
 	
 	@PostMapping("/add")
-	public String adicionar(Competicao competicao) {
+	public String adicionar(Competition competicao) {
 		repositorioCompeticao.save(competicao);
 		return "redirect:/methods/index";
 	}
@@ -53,7 +53,7 @@ public class CompeticaoController {
 	}
 	
 	@PostMapping("/edit")
-	public String editar(Competicao competicao) {
+	public String editar(Competition competicao) {
 		repositorioCompeticao.save(competicao);
 		return "redirect:/methods/index";
 	}

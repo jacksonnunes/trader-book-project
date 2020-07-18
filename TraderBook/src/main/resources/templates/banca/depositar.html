@@ -12,25 +12,27 @@
 	<div th:replace="fragments/fragments :: header"></div>
 	<div class="container">
 		<h2 class="text-center">Depósito</h2>
-		<form class="form-horizontal" action="/bank/deposit" method="post" th:object="${bancas}">
+		<form class="form-horizontal" action="/bank/deposit" method="post" th:object="${bank}">
 			<div class="row">
 				<div class="form-group col-md-5">
-					<input type="text" class="form-control" th:field="*{nomeBanca}" readonly/>
+					<input type="text" class="form-control" th:field="*{name}" readonly/>
 					<input type="hidden" th:field="*{id}"/>
-					<input type="hidden" th:field="*{saldo}"/>
+					<input type="hidden" th:field="*{currency}"/>
+					<input type="hidden" th:field="*{balance}"/>
 				</div>
 			</div>
-			<div th:object="${deposito}">
+			<div th:object="${deposit}">
 				<div class="row">
 					<div class="form-group col-md-5">
 						<label for="data">Data do depósito:</label> 
-						<input type="text" class="form-control" id="data" th:field="*{data}"/>
+						<input type="text" class="form-control" id="data" th:field="*{date}"/>
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-md-5">
 						<label for="deposit">Valor do depósito:</label> 
-						<input type="text" class="form-control" id="deposit" th:field="*{valor}"/>
+						<input type="text" class="form-control" id="deposit" th:field="*{value}"/>
+						<p class="text-danger" th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></p>
 					</div>
 				</div>
 			</div>

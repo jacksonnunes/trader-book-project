@@ -11,18 +11,27 @@
 	<div th:replace="fragments/fragments :: header"></div>
 	<div class="container">
 		<h2 class="text-center">Editar Banca</h2>
-		<form class="form-horizontal" th:action="@{/bank/edit}" method="post" th:object="${banca}">
+		<form class="form-horizontal" th:action="@{/bank/edit}" method="post" th:object="${bank}">
 			<div class="row">
 				<input type="hidden" th:field="*{id}"/>
 				<div class="form-group col-md-5">
 					<label for="bank-name">Nome da Banca:</label> 
-					<input type="text" class="form-control" id="bank-name" th:field="*{nomeBanca}"/>
+					<input type="text" class="form-control" id="bank-name" th:field="*{name}"/>
 				</div>
 			</div>
 			<div class="row">
-				<div class="form-group col-md-5">
+				<div class="form-group col-md-2">
+					<select class="form-control" th:field="*{currency}">
+						<option th:value="'US$'">Dólar Americano - US$</option>
+						<option th:value="'€'">Euro - €</option>
+						<option th:value="'£'">Libra - £</option>
+						<option th:value="'R$'">Real - R$</option>
+					</select>
+				</div>
+				<p class="text-danger" th:if="${#fields.hasErrors('currency')}" th:errors="*{currency}"></p>
+				<div class="form-group col-md-3">
 					<label for="bank-balance">Saldo:</label> 
-					<input type="text" class="form-control" id="bank-balance" th:field="*{saldo}" disabled/>
+					<input type="text" class="form-control" id="bank-balance" th:field="*{balance}" readonly/>
 				</div>
 			</div>
 			<div class="row">

@@ -47,6 +47,7 @@ INDEX VERSION 1.131+D:\Documentos\TRADER ESPORTIVO\TraderBookProject\.metadata\.
 4113496156.index
 2219772835.index
 405917896.index
+2933808526.index
 560984127.index
 1950742685.index
 1115512017.index
@@ -90,6 +91,7 @@ INDEX VERSION 1.131+D:\Documentos\TRADER ESPORTIVO\TraderBookProject\.metadata\.
 354086389.index
 3140381735.index
 1831590524.index
+2586553625.index
 2636248134.index
 3026983151.index
 4229371871.index
