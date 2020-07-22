@@ -22,11 +22,12 @@ import com.traderbook.repositories.StrategyRepository;
 import com.traderbook.repositories.UserRepository;
 import com.traderbook.repositories.MarketRepository;
 import com.traderbook.repositories.OperationRepository;
+import com.traderbook.repositories.SportRepository;
 import com.traderbook.repositories.CountryRepository;
 
 @Controller
 @RequestMapping("/operations")
-public class OperationsController {
+public class OperationController {
 	
 	@Autowired
 	private OperationRepository operationRepository;
@@ -43,6 +44,8 @@ public class OperationsController {
 	@Autowired
 	private BankRepository bankRepository;
 	@Autowired
+	private SportRepository sportRepository;
+	@Autowired
 	private UserRepository userRepository;
 	
 	@GetMapping("/list")
@@ -55,16 +58,16 @@ public class OperationsController {
 		Users user = userRepository.findByEmail(username);
 		
 		//Listando as operações do usuário
-		List<Operation> operacoes = operationRepository.findByUser(user);
+		List<Operation> operations = operationRepository.findByUser(user);
 		//Ordenando por data
-		operacoes.sort((d1, d2) -> {
+		operations.sort((d1, d2) -> {
 			if(d1.getDate().after(d2.getDate()))
 				return 1;
 			if(d1.getDate().before(d2.getDate()))
 				return -1;
 			return 0;
 		});
-		result.addObject("operacoes", operacoes);
+		result.addObject("operations", operations);
 		return result;
 	}
 	
@@ -78,20 +81,18 @@ public class OperationsController {
 		
 		Operation operation = new Operation();
 		result.addObject("operation", operation);
-		result.addObject("aspects", aspectRepository.findAll());
-		result.addObject("competitions", competitionRepository.findAll());
-		result.addObject("strategies", strategyRepository.findAll());
-		result.addObject("markets", marketRepository.findAll());
-		result.addObject("countries", countryRepository.findAll());
 		result.addObject("banks", bankRepository.findByUser(user));
+		result.addObject("aspects", aspectRepository.findAll());
+		result.addObject("sports", sportRepository.findAll());
+		result.addObject("markets", marketRepository.findAll());
+		result.addObject("strategies", strategyRepository.findAll());
+		result.addObject("countries", countryRepository.findAll());
+		result.addObject("competitions", competitionRepository.findAll());
 		return result;
 	}
 	
 	@PostMapping("/add")
 	public String add(Operation operation) {
-		
-		//Calculando o retorno sobre investimento
-		operation.setROI(operation.getReturnedValue() / operation.getInvestedValue());
 		
 		//Recuperando a banca escolhida
 		Bank bank = bankRepository.getOne(operation.getBank().getId());
@@ -100,12 +101,12 @@ public class OperationsController {
 		operation.setBankValue(bank.getBalance());
 		operation.calcBankPercInvested();
 		
-		//Atualizando saldo da banca
-		double updateBalance = bank.getBalance() + operation.getReturnedValue();
-		bank.setBalance(updateBalance);
-		
-		//Se o valor retornado for cadastrado, calcular ROI e Retorno sobre o saldo da Banca
-		if(operation.getReturnedValue() != 0) {
+		//Se o valor retornado for cadastrado
+		if(operation.getReturnedValue() != 0.0) {
+			//Atualizando saldo da banca
+			double updateBalance = bank.getBalance() + operation.getReturnedValue();
+			bank.setBalance(updateBalance);
+			//Calcular ROI e Retorno sobre o saldo da Banca
 			operation.calcROI();
 			operation.calcBankROI();
 		}
@@ -115,7 +116,7 @@ public class OperationsController {
 		String username = auth.getName();
 		Users user = userRepository.findByEmail(username);
 		
-		//Salvando usuário logado na operação
+		//Salvando operação para usuário logado
 		operation.setUser(user);
 		
 		//Salvando alterações
@@ -132,39 +133,47 @@ public class OperationsController {
 		operation.setPreviousValue(operation.getReturnedValue());
 		
 		result.addObject("operation", operation);
-		result.addObject("competitions", competitionRepository.findAll());
-		result.addObject("strategies", strategyRepository.findAll());
-		result.addObject("markets", marketRepository.findAll());
-		result.addObject("countries", countryRepository.findAll());
 		result.addObject("banks", bankRepository.findAll());
+		result.addObject("aspects", aspectRepository.findAll());
+		result.addObject("sports", sportRepository.findAll());
+		result.addObject("markets", marketRepository.findAll());
+		result.addObject("strategies", strategyRepository.findAll());
+		result.addObject("countries", countryRepository.findAll());
+		result.addObject("competitions", competitionRepository.findAll());
 		return result;
 	}
 	
 	@PostMapping("/edit")
-	public String edit(Operation operacao) {
-		//Calculando o retorno sobre investimento
-		operacao.setROI(operacao.getReturnedValue() / operacao.getInvestedValue());
-		//Alterar valor na banca
-		Bank banca = bankRepository.getOne(operacao.getBank().getId());
-		double valorAAtualizar = operacao.getReturnedValue() - operacao.getPreviousValue();
-		valorAAtualizar += banca.getBalance();
-		banca.setBalance(valorAAtualizar);
-		//Salvando altareções
-		bankRepository.save(banca);
-		operationRepository.save(operacao);
+	public String edit(Operation operation) {
+		if(operation.getReturnedValue() != 0.0) {
+			//Recuperando banca da operação
+			Bank bank = bankRepository.getOne(operation.getBank().getId());
+			//Calcular ROI e Retorno sobre o saldo da Banca
+			operation.calcROI();
+			//Alterar valor na banca
+			double valorAAtualizar = operation.getReturnedValue() - operation.getPreviousValue();
+			valorAAtualizar += bank.getBalance();
+			bank.setBalance(valorAAtualizar);
+			//Salvando altareções
+			bankRepository.save(bank);
+			//Calcular ROI e Retorno sobre o saldo da Banca
+			operation.calcROI();
+			operation.calcBankROI();
+		}
+		operationRepository.save(operation);
 		return "redirect:/operations/list";
 	}
 	
 	@GetMapping("/delete/{id}")
 	public String excluir(@PathVariable Long id) {
-		Operation operacao = operationRepository.getOne(id);
-		Bank banca = bankRepository.getOne(operacao.getBank().getId());
+		Operation operation = operationRepository.getOne(id);
+		Bank bank = bankRepository.getOne(operation.getBank().getId());
 		//Devolvendo valor para a banca
-		double valorADevolver = operacao.getReturnedValue() * -1.0;
-		valorADevolver += banca.getBalance();
-		banca.setBalance(valorADevolver);
+		double valorADevolver = operation.getReturnedValue() * -1.0;
+		valorADevolver += bank.getBalance();
+		bank.setBalance(valorADevolver);
 		//Realizando o ajuste na banca e excluindo a operação
-		bankRepository.save(banca);
+		bankRepository.save(bank);
 		operationRepository.deleteById(id);
 		return "redirect:/operations/list";
 	}

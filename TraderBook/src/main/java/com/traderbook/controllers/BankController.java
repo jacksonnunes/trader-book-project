@@ -55,7 +55,7 @@ public class BankController {
 		
 		bank.setUser(user);
 		bankRepository.save(bank);
-		return "redirect:/";
+		return "redirect:/home";
 	}
 	
 	@GetMapping("/edit/{id}")
@@ -69,7 +69,7 @@ public class BankController {
 	@PostMapping("/edit")
 	public String editar(Bank bank) {
 		bankRepository.save(bank);
-		return "redirect:/";
+		return "redirect:/home";
 	}
 	
 	@GetMapping("/delete/{id}")
@@ -94,7 +94,7 @@ public class BankController {
 		deposit.setBank(bank);
 		depositRepository.save(deposit);
 		bankRepository.save(bank);
-		return "redirect:/";
+		return "redirect:/home";
 	}
 	
 	@GetMapping("/withdraw/{id}")
@@ -121,7 +121,7 @@ public class BankController {
 		withdraw.setBank(bank);
 		withdrawRepository.save(withdraw);
 		bankRepository.save(bank);
-		return "redirect:/";
+		return "redirect:/home";
 	}
 
 }

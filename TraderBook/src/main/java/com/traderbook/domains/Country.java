@@ -1,7 +1,7 @@
 package com.traderbook.domains;
 
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,7 +38,10 @@ public class Country {
 	private Continent continent;
 	
 	@OneToMany(mappedBy = "country")
-	private Set<Competition> competitions;
+	private List<Competition> competitions;
+	
+	@OneToMany(mappedBy = "country")
+	private List<Operation> operations;
 	
 	@OneToMany(mappedBy = "country")
 	private List<Users> user;
@@ -71,12 +74,20 @@ public class Country {
 		this.continent = continent;
 	}
 
-	public Set<Competition> getCompetitions() {
+	public List<Competition> getCompetitions() {
 		return competitions;
 	}
 
-	public void setCompetitions(Set<Competition> competitions) {
+	public void setCompetitions(List<Competition> competitions) {
 		this.competitions = competitions;
+	}
+
+	public List<Operation> getOperations() {
+		return operations;
+	}
+
+	public void setOperations(List<Operation> operations) {
+		this.operations = operations;
 	}
 
 	public List<Users> getUser() {
@@ -85,6 +96,17 @@ public class Country {
 
 	public void setUser(List<Users> user) {
 		this.user = user;
+	}
+	
+	public List<Competition> getCompetitionsBySport(String sportName) {
+		List<Competition> competitions = this.getCompetitions();
+		List<Competition> competitionsBySport = new LinkedList<Competition>();
+		for(Competition competition : competitions) {
+			if(competition.getSport().getName() == sportName) {
+				competitionsBySport.add(competition);
+			}
+		}
+		return competitionsBySport;
 	}
 
 }

@@ -19,7 +19,7 @@
 					<input type="text" class="form-control" id="country-name" th:field="*{name}" />
 				</div>
 			</div>
-			<div class="row" th:object="${continents}">
+			<div class="row">
 				<div class="form-group col-md-5">
 					<label for="slt-continent">Continente:</label>
 					<select id="slt-continent" class="form-control" th:field="*{continent.id}">
@@ -34,5 +34,7 @@
 			</div>
 		</form>
 	</div>
+	
+	<div th:replace="fragments/fragments :: footer"></div>
 </body>
 </html>

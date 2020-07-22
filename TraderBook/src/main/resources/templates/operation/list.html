@@ -31,29 +31,31 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="operacao: ${operacoes}">
-				<td th:text="${#dates.format(operacao.data, 'dd/MM/yyyy')}"></td>
-				<td th:text="${operacao.bancaOperacao.nomeBanca}"></td>
-				<td th:text="${operacao.mercado.mercado}"></td>
-				<td th:text="${operacao.estrategia.nome}"></td>
-				<td th:text="${operacao.competicao.nome}"></td>
-				<td th:text="${operacao.evento}"></td>
-				<td th:text="'$ ' + ${#numbers.formatDecimal(operacao.valorInvestido, 0, 'POINT', 2, 'COMMA')}"></td>
+			<tr th:each="operation: ${operations}">
+				<td th:text="${#dates.format(operation.date, 'dd/MM/yyyy')}"></td>
+				<td th:text="${operation.bank.name}"></td>
+				<td th:text="${operation.market.name}"></td>
+				<td th:text="${operation.strategy.name}"></td>
+				<td th:text="${operation.competition.name}"></td>
+				<td th:text="${operation.teamOne} + ' x ' + ${operation.teamTwo}"></td>
+				<td th:text="${operation.bank.currency} + ' ' + ${#numbers.formatDecimal(operation.investedValue, 0, 'POINT', 2, 'COMMA')}"></td>
 				
-				<td th:if="${operacao.valorRetorno != 0}" th:style="${operacao.valorRetorno > 0 ? 'color: green' : 'color: red'}" 
-					th:text="'$ ' + ${#numbers.formatDecimal(operacao.valorRetorno, 0, 'POINT', 2, 'COMMA')}"></td>
-				<td th:unless="${operacao.valorRetorno != 0}" th:text="''"></td>
+				<td th:if="${operation.returnedValue != 0}" th:style="${operation.returnedValue > 0 ? 'color: green' : 'color: red'}" 
+					th:text="${operation.bank.currency} + ' ' + ${#numbers.formatDecimal(operation.returnedValue, 0, 'POINT', 2, 'COMMA')}"></td>
+				<td th:unless="${operation.returnedValue != 0}" th:text="''"></td>
 				<!-- Condicional testa se ROI é diferente de zero, caso contrário, não imprime nada na tela -->
-				<td th:if="${operacao.ROI != 0}" th:style="${operacao.ROI > 0 ? 'color: green' : 'color: red'}" 
-					th:text="${#numbers.formatPercent(operacao.ROI, 0, 2)}"></td>
-				<td th:unless="${operacao.ROI != 0}" th:text="''"></td>
+				<td th:if="${operation.ROI != 0}" th:style="${operation.ROI > 0 ? 'color: green' : 'color: red'}" 
+					th:text="${#numbers.formatPercent(operation.ROI, 0, 2)}"></td>
+				<td th:unless="${operation.ROI != 0}" th:text="''"></td>
 					
 				<td>
-					<a th:href="@{/operations/edit/{id}(id=${operacao.id})}"><i class="material-icons">edit</i></a>     
-					<a th:href="@{/operations/delete/{id}(id=${operacao.id})}"><i class="material-icons">delete</i></a>
+					<a th:href="@{/operations/edit/{id}(id=${operation.id})}"><i class="material-icons">edit</i></a>     
+					<a th:href="@{/operations/delete/{id}(id=${operation.id})}"><i class="material-icons">delete</i></a>
 				</td>
 			</tr>
 		</tbody>
 	</table>
+	
+	<div th:replace="fragments/fragments :: footer"></div>
 </body>
 </html>

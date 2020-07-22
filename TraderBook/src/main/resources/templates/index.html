@@ -11,7 +11,6 @@
 </head>
 <body>
 	<div th:replace="fragments/fragments :: header"></div>
-<!-- 	<h4 sec:authorize="isAuthenticated">Bem vindo, <span sec:authentication="name"></span></h4> -->
 	<div class="container-flex bg-secondary">
 	<span sec:authentication="principal.authorities"></span>
 	
@@ -37,6 +36,10 @@
 		<!-- Listagem das últimas operações -->
 		
 	</div>
+	
+	<div th:replace="fragments/fragments :: footer"></div>
+	
+	
 <!-- 		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/> -->
 		
 <!-- 		<h2 class="text-center">Bancas</h2> -->

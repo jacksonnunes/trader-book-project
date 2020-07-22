@@ -1,5 +1,6 @@
 package com.traderbook.domains;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -30,6 +31,12 @@ public class Sport {
 	
 	@OneToMany(mappedBy = "sport")
 	private Set<Competition> competitions;
+	
+	@OneToMany(mappedBy = "sport")
+	private Set<Market> markets;
+	
+	@OneToMany(mappedBy = "sport")
+	private List<Operation> operations;
 
 	public Long getId() {
 		return id;
@@ -53,6 +60,22 @@ public class Sport {
 
 	public void setCompetitions(Set<Competition> competitions) {
 		this.competitions = competitions;
+	}
+
+	public Set<Market> getMarkets() {
+		return markets;
+	}
+
+	public void setMarkets(Set<Market> markets) {
+		this.markets = markets;
+	}
+
+	public List<Operation> getOperations() {
+		return operations;
+	}
+
+	public void setOperations(List<Operation> operations) {
+		this.operations = operations;
 	}
 
 }

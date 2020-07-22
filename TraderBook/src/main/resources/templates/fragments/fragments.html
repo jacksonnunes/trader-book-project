@@ -31,12 +31,20 @@
 						<a class="dropdown-item" th:href="@{/bank/add}">Adicionar</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="#">Remover</a>
-					</div></li>
+					</div>
+				</li>
 				<li class="nav-item" th:if="${#authorization.expression('hasAuthority(''USER_ADMIN'')')}">
 					<a class="nav-link	" th:href="@{/users/list}" aria-disabled="true">Usuários</a>
 				</li>
-				<li class="nav-item" th:if="${#authorization.expression('hasAuthority(''USER_ADMIN'')')}">
-					<a class="nav-link	" th:href="@{/methods/index}" aria-disabled="true">Configurações</a>
+				<li class="nav-item dropdown" th:if="${#authorization.expression('hasAuthority(''USER_ADMIN'')')}">
+					<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Configurações Administrativas</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" th:href="@{/country/list}">Continentes e Países</a>
+						<a class="dropdown-item" th:href="@{/competition/list}">Esportes e Competições</a>
+						<a class="dropdown-item" th:href="@{/strategy/list}">Estratégias e Mercados</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" th:href="@{/aspect/list}">Aspectos de Apostas</a>
+					</div>
 				</li>
 			</ul>
 			<form class="form-inline my-2 my-lg-0" action="/logout">
@@ -44,5 +52,7 @@
 			</form>
 		</div>
 	</nav>
+	
+	<footer class="footer text-center mb-3" th:fragment="footer">&copy; SportsTradingBook 2020</footer>
 </body>
 </html>

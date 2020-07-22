@@ -43,6 +43,11 @@ public class Operation {
 	@JoinColumn(name = "asp_id")
 	private Aspect aspect;
 	
+	@NotNull(message = "Escolher esporte.")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "spo_id")
+	private Sport sport;
+	
 	@NotNull(message = "Preencher informações.")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "mkt_id")
@@ -52,6 +57,11 @@ public class Operation {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "str_id")
 	private Strategy strategy;
+	
+	@NotNull(message = "Preencher informações.")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "cnt_id")
+	private Country country;
 	
 	@NotNull(message = "Preencher informações.")
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -105,6 +115,8 @@ public class Operation {
 		this.strategy = new Strategy();
 		this.competition = new Competition();
 		this.user = new Users();
+		this.ROI = 0.0;
+		this.bankROI = 0.0;
 		this.previousValue = 0.0;
 	}
 
@@ -140,6 +152,14 @@ public class Operation {
 		this.aspect = aspect;
 	}
 
+	public Sport getSport() {
+		return sport;
+	}
+
+	public void setSport(Sport sport) {
+		this.sport = sport;
+	}
+
 	public Market getMarket() {
 		return market;
 	}
@@ -154,6 +174,14 @@ public class Operation {
 
 	public void setStrategy(Strategy strategy) {
 		this.strategy = strategy;
+	}
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
 	}
 
 	public Competition getCompetition() {

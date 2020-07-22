@@ -28,7 +28,7 @@ public class ContinentController {
 	@PostMapping("/add")
 	public String add(Continent continent) {
 		continentRepository.save(continent);
-		return "redirect:/methods/index";
+		return "redirect:/country/list";
 	}
 	
 	@GetMapping("/edit/{id}")
@@ -41,13 +41,13 @@ public class ContinentController {
 	@PostMapping("/edit")
 	public String edit(Continent continent) {
 		continentRepository.save(continent);
-		return "redirect:/methods/index";
+		return "redirect:/country/list";
 	}
 	
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable Long id) {
 		continentRepository.deleteById(id);
-		return "redirect:/methods/index";
+		return "redirect:/country/list";
 	}
 
 }

@@ -11,19 +11,27 @@
 	<div th:replace="fragments/fragments :: header"></div>
 	<div class="container">
 		<h2 class="text-center">Editar Competição</h2>
-		<form class="form-horizontal" action="/competition/add" method="post" th:object="${competicao}">
+		<form class="form-horizontal" action="/competition/edit" method="post" th:object="${competition}">
 			<input type="hidden" th:field="*{id}"/>
 			<div class="row">
-				<div class="form-group col-md-5">
+				<div class="form-group col-md-6">
 					<label for="competition-name">Nome da Competição:</label>
-					<input type="text" class="form-control" id="competition-name" th:field="*{nome}" />
+					<input type="text" class="form-control" id="competition-name" th:field="*{name}" />
 				</div>
 			</div>
 			<div class="row">
-				<div class="form-group col-md-5">
+				<div class="form-group col-md-3">
 					<label for="slt-country">País da Competição:</label>
-					<select id="slt-country" class="form-control" th:field="*{pais.id}">
-						<option th:each="pais: ${paises}" th:value="${pais.id}" th:text="${pais.nomePais}"/>
+					<select id="slt-country" class="form-control" th:field="*{country.id}">
+						<option th:each="country: ${countries}" th:value="${country.id}" th:text="${country.name}"/>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-3">
+					<label for="slt-sport">Esporte:</label>
+					<select id="slt-sport" class="form-control" th:field="*{sport.id}">
+						<option th:each="sport: ${sports}" th:value="${sport.id}" th:text="${sport.name}"/>
 					</select>
 				</div>
 			</div>
@@ -34,5 +42,7 @@
 			</div>
 		</form>
 	</div>
+	
+	<div th:replace="fragments/fragments :: footer"></div>
 </body>
 </html>

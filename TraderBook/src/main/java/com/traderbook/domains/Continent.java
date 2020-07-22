@@ -1,6 +1,6 @@
 package com.traderbook.domains;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +29,7 @@ public class Continent {
 	private String name;
 	
 	@OneToMany(mappedBy = "continent")
-	private Set<Country> countries;
+	private List<Country> countries;
 
 	public Long getId() {
 		return id;
@@ -47,11 +47,11 @@ public class Continent {
 		this.name = name;
 	}
 
-	public Set<Country> getCountries() {
+	public List<Country> getCountries() {
 		return countries;
 	}
 
-	public void setCountries(Set<Country> countries) {
+	public void setCountries(List<Country> countries) {
 		this.countries = countries;
 	}
 

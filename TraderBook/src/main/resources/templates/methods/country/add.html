@@ -16,6 +16,7 @@
 				<div class="form-group col-md-5">
 					<label for="country-name">Nome do país:</label> 
 					<input type="text" class="form-control" id="country-name" th:field="*{name}" />
+					<p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 				</div>
 			</div>
 			<div class="row">
@@ -33,5 +34,7 @@
 			</div>
 		</form>
 	</div>
+	
+	<div th:replace="fragments/fragments :: footer"></div>
 </body>
 </html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>SportsTradingBook: Cadastrar Competição</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div th:replace="fragments/fragments :: header"></div>
+	<div class="container">
+		<h2 class="text-center">Cadastrar Competição</h2>
+		<form class="form-horizontal" action="/competition/add" method="post" th:object="${competition}">
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="competition-name">Nome da Competição:</label>
+					<input type="text" class="form-control" id="competition-name" th:field="*{name}" />
+					<p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-3">
+					<label for="slt-sport">Esporte:</label>
+					<select id="slt-sport" class="form-control" th:field="*{sport.id}">
+						<option th:each="sport: ${sports}" th:value="${sport.id}" th:text="${sport.name}"/>
+					</select>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="slt-country">País da Competição:</label>
+					<select id="slt-country" class="form-control" th:field="*{country.id}">
+						<option th:each="country: ${countries}" th:value="${country.id}" th:text="${country.name}"/>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<input type="submit" value="Salvar" class="btn btn-primary"/>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<div th:replace="fragments/fragments :: footer"></div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>SportsTradingBook: Estratégias e Mercados</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div th:replace="fragments/fragments :: header"></div>
+	
+	<div class="container-flex">
+	
+		<div class="shadow-lg p-3 mb-5 bg-white rounded-lg m-3">
+			<h4 class="text-center">Estratégias por Mercado</h4>
+			<div class="d-flex justify-content-center">
+				<span class="mx-1 my-2">
+					<a th:href="@{/market/add}" class="btn btn-secondary">Adicionar Mercado</a>
+				</span>
+				<span class="mx-1 my-2">
+					<a th:href="@{/strategy/add}" class="btn btn-secondary">Adicionar Estratégia</a>
+				</span>
+			</div>
+			<div class="d-flex flex-wrap justify-content-center align-items-start">
+				<div class="shadow-sm p-2 mb-5 bg-white rounded-lg col-lg-3 d-inline-block m-1" th:each="sport: ${sports}" th:if="${sport.getMarkets().size() > 0}">
+					<div class="m-3">
+						<h5 class="d-inline-block" th:text="${sport.name}"></h5>
+					</div>
+					<div class="col-lg-12">
+						<ul class="list-group my-1" th:each="market: ${sport.markets}" th:if="${sport.getMarkets().size() > 0}">
+							<li class="list-group-item active" th:text="${market.name}">
+								<span th:text="${market.name}"></span>
+								<span class="float-right">
+									<a th:href="@{/market/edit/{id}(id=${market.getId()})}">Editar</a> | 
+									<a th:href="@{/market/delete/{id}(id=${market.getId()})}">Excluir</a>
+								</span>
+							</li>
+							<li class="list-group-item" th:each="strategy: ${market.getStrategies()}" th:if="${market.getStrategies().size() > 0}">
+								<span th:text="${strategy.getName()}"></span>
+								<span class="float-right">
+									<a th:href="@{/strategy/edit/{id}(id=${strategy.getId()})}">Editar</a> | 
+									<a th:href="@{/strategy/delete/{id}(id=${strategy.getId()})}">Excluir</a>
+								</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<div th:replace="fragments/fragments :: footer"></div>
+	
+</body>
+</html>

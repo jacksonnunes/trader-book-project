@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -28,12 +30,20 @@ public class Market {
 	@NotNull(message = "O preenchimento é obrigatório.")
 	@Length(min = 3, max = 20, message = "O nome do mercado precisa conter entre 3 e 20 caracteres.")
 	private String name;
-	
+
 	@OneToMany(mappedBy = "market")
-	private List<Strategy> strategy;
+	private List<Strategy> strategies;
+
+	@ManyToOne
+	@JoinColumn(name = "id_spo")
+	private Sport sport;
 
 	@OneToMany(mappedBy = "market", cascade = CascadeType.MERGE)
 	private List<Operation> operations;
+
+	public Market() {
+		this.sport = new Sport();
+	}
 
 	public Long getId() {
 		return id;
@@ -51,12 +61,20 @@ public class Market {
 		this.name = name;
 	}
 
-	public List<Strategy> getStrategy() {
-		return strategy;
+	public List<Strategy> getStrategies() {
+		return strategies;
 	}
 
-	public void setStrategy(List<Strategy> strategy) {
-		this.strategy = strategy;
+	public void setStrategies(List<Strategy> strategies) {
+		this.strategies = strategies;
+	}
+
+	public Sport getSport() {
+		return sport;
+	}
+
+	public void setSport(Sport sport) {
+		this.sport = sport;
 	}
 
 	public List<Operation> getOperations() {

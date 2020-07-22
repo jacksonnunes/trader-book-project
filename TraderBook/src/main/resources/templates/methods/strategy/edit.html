@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>SportsTradingBook: Cadastrar Estratégia</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div th:replace="fragments/fragments :: header"></div>
+	<div class="container">
+		<h2 class="text-center">Cadastrar Estratégia</h2>
+		<form class="form-horizontal" action="/strategy/add" method="post" th:object="${strategy}">
+			<input type="hidden" th:field="*{id}"/>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="strategy-name">Nome da Estratégia:</label>
+					<input type="text" class="form-control" id="strategy-name" th:field="*{name}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="slt-market">Mercado:</label>
+					<select id="slt-market" class="form-control" th:field="*{market.id}">
+						<option th:each="market: ${markets}" th:value="${market.id}" th:text="${market.name}"/>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<input type="submit" value="Salvar" class="btn btn-primary"/>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<div th:replace="fragments/fragments :: footer"></div>
+</body>
+</html>

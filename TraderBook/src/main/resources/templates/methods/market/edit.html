@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
-<title>SportsTradingBook: Cadastrar Mercado</title>
+<title>SportsTradingBook: Editar Mercado</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
 <script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
@@ -10,12 +10,21 @@
 <body>
 	<div th:replace="fragments/fragments :: header"></div>
 	<div class="container">
-		<h2 class="text-center">Cadastrar Mercado</h2>
-		<form class="form-horizontal" action="/market/add" method="post" th:object="${mercado}">
+		<h2 class="text-center">Editar Mercado</h2>
+		<form class="form-horizontal" action="/market/add" method="post" th:object="${market}">
+			<input type="hidden" th:field="*{id}"/>
 			<div class="row">
 				<div class="form-group col-md-5">
 					<label for="market-name">Nome do Mercado:</label>
-					<input type="text" class="form-control" id="market-name" th:field="*{mercado}" />
+					<input type="text" class="form-control" id="market-name" th:field="*{market}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="slt-sport">Esporte:</label>
+					<select id="slt-sport" class="form-control" th:field="*{sport.id}">
+						<option th:each="sport: ${sports}" th:value="${sport.id}" th:text="${sport.name}" />
+					</select>
 				</div>
 			</div>
 			<div class="row">
@@ -25,5 +34,7 @@
 			</div>
 		</form>
 	</div>
+	
+	<div th:replace="fragments/fragments :: footer"></div>
 </body>
 </html>
